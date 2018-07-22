@@ -1,14 +1,16 @@
 import pyodbc
 from MarvelClass import Marvel
+from ConnectionClass3 import DB_Connector
 
-# Put connection in a class later
-server = '#############'
-database = '##############'
-cnxn = pyodbc.connect(
-    'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server + ';Trusted_Connection=yes;DATABASE=' + database)
 
-pub_key = '#########################'
-pri_key = '#########################'
+# Connect to the database
+db_connection = DB_Connector()
+#cursor = db_connection.query('select count(distinct ComicId) from Stage.ResourceURI')
+#row = cursor.fetchall()
+#print(str(row))
+
+pub_key = '################################'
+pri_key = '################################'
 x = Marvel(pub_key,pri_key)
 
 # Determine the iteration cycle
@@ -17,7 +19,7 @@ recordOffset = 20
 offsetInt = 0
 
 # Loop through up to 300 comic books
-while offsetInt < 300:
+while offsetInt < 40:
     print("Record Offset: ", offsetInt)
     j = x.fetch_comics_by_characterId(1009652, str(limit), "title", str(recordOffset))
 
@@ -28,17 +30,20 @@ while offsetInt < 300:
     iterCount = 0
 
     for resources in range(0,resourceCount):  #
-        cursor = cnxn.cursor()
+        #cursor = cnxn.cursor()
         resource=j['data']['results'][iterCount]['resourceURI']
         print(resource)
         comicid = resource.split("comics/")[1]
         print("Comic ID: ", comicid)
-        cursor.execute('''INSERT INTO STAGE.ResourceURI (ResourceURI, ComicId)
+        cursor = db_connection.query_param('''INSERT INTO STAGE.ResourceURI (ResourceURI, ComicId)
                         VALUES (?,?)''', (resource,comicid))
         print("insert: ", resource, comicid)
         iterCount = iterCount+1
 
         # commit the transaction
-        cnxn.commit()
+        # How do I structure this commit?
+        cursor.commit()
 
     offsetInt = offsetInt + recordOffset
+# close the cursor 
+cursor.close()

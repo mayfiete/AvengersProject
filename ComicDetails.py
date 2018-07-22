@@ -1,25 +1,22 @@
-
 import pyodbc
 from MarvelClass import Marvel
+from ConnectionClass3 import DB_Connector
 
-# Put connection in a class later
-server = '#############'
-database = '##############'
-cnxn = pyodbc.connect(
-    'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server + ';Trusted_Connection=yes;DATABASE=' + database)
+# Connect to the database
+db_connection = DB_Connector()
 
-cursor = cnxn.cursor()
+#cursor = cnxn.cursor()
 
-pub_key = '###################'
-pri_key = '###################'
+pub_key = '################################'
+pri_key = '################################'
 x = Marvel(pub_key, pri_key)
 
 # determine the record count in the ResourceURI table
-cursor.execute('select count(distinct ComicId) from Stage.ResourceURI')
+cursor = db_connection.query('select count(distinct ComicId) from Stage.ResourceURI')
 iterMax = cursor.fetchone()
 print(iterMax[0])
 
-cursor.execute('SELECT distinct ComicId FROM Stage.ResourceURI')
+cursor = db_connection.query('SELECT distinct ComicId FROM Stage.ResourceURI')
 
 row = cursor.fetchall()
 print(row)
@@ -58,12 +55,13 @@ for charReturn in range(0, iterMax[0] - 1):
     seriesName = s['data']['results'][0]['series']['name']
     print('Series Name: ', seriesName)
 
-    cursor.execute('''INSERT INTO STAGE.ComicDetails (ComicId, ComicName, IssueNumber, SeriesResourceURI, SeriesId, SeriesName)
+    cursor = db_connection.query_param('''INSERT INTO STAGE.ComicDetails (ComicId, ComicName, IssueNumber, SeriesResourceURI, SeriesId, SeriesName)
                       VALUES (? , ? , ?, ?, ?, ?)''', (comicId, comicName, issueNumber, seriesResourceURI, seriesId, seriesName))
     print("insert: ", comicId, comicName, issueNumber, seriesResourceURI, seriesId, seriesName)
 
-    cnxn.commit()
+    cursor.commit()
 
     iterCount = iterCount + 1
 
-cnxn.close()
+cursor.close()
+

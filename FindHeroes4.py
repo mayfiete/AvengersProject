@@ -1,26 +1,21 @@
-
 import pyodbc
 from MarvelClass import Marvel
+from ConnectionClass3 import DB_Connector
 import time
 
-# Put connection in a class later
-server = '#############'
-database = '##############'
-cnxn = pyodbc.connect(
-    'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server + ';Trusted_Connection=yes;DATABASE=' + database)
+# Connect to the database
+db_connection = DB_Connector()
 
-cursor = cnxn.cursor()
-
-pub_key = '###################'
-pri_key = '###################'
+pub_key = '##################################'
+pri_key = '##################################'
 x = Marvel(pub_key, pri_key)
 
 # determine the record count in the ResourceURI table
-cursor.execute('select count(distinct ComicId) from Stage.ResourceURI')
+cursor = db_connection.query('select count(distinct ComicId) from Stage.ResourceURI')
 iterMax = cursor.fetchone()
 print(iterMax[0])
 
-cursor.execute('SELECT distinct ComicId FROM Stage.ResourceURI')
+cursor = db_connection.query('SELECT distinct ComicId FROM Stage.ResourceURI')
 
 row = cursor.fetchall()
 print(row)
@@ -58,7 +53,7 @@ for charReturn in range(0, iterMax[0] - 1):
         heroDescription = s['data']['results'][heroCountIter]['description']
         print("Hero Description: ", heroDescription)
 
-        cursor.execute('''INSERT INTO STAGE.CharacterCatalog (CharacterId, CharacterName, CharacterDescription, ComicId)
+        cursor=db_connection.query_param('''INSERT INTO STAGE.CharacterCatalog (CharacterId, CharacterName, CharacterDescription, ComicId)
                           VALUES (? , ? , ?, ?)''', (heroId, heroName, heroDescription, comId))
         print("insert: ", heroName, heroDescription, comId)
         heroCountIter = heroCountIter + 1
@@ -77,12 +72,13 @@ for charReturn in range(0, iterMax[0] - 1):
             print("Hero Name: ", heroName, "Comic Resource URI: ", comicListResourceURI)
             comicListComicId = comicListResourceURI.split("comics/")[1]
             print(comicListComicId)
-            cursor.execute('''INSERT INTO STAGE.CharacterComics (CharacterId, CharacterName, ResourceURI, ComicId, SubComicId, SeparationDegrees)
+            cursor = db_connection.query_param('''INSERT INTO STAGE.CharacterComics (CharacterId, CharacterName, ResourceURI, ComicId, SubComicId, SeparationDegrees)
                                      VALUES (? , ? , ?, ?, ?, ?)''', (heroId, heroName, comicListResourceURI, comId, comicListComicId, 0 ))
             print("insert: ", heroId, heroName, comicListResourceURI, comId, comicListComicId, 0)
             heroComicCountIter = heroComicCountIter + 1
 
     iterCount = iterCount + 1
 
-    cnxn.commit()
-cnxn.close()
+    cursor.commit()
+cursor.close()
+
