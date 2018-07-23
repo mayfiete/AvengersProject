@@ -7,14 +7,3 @@ CREATE TABLE STAGE.ResourceURI (
 ); 
 GO
 -- select distinct * from Stage.ResourceURI; 
-
-/*
-ALTER TABLE STAGE.ResourceURI 
-	ADD ComicName varchar(100); 
-
-ALTER TABLE STAGE.ResourceURI 
-	ADD SeriesId INT; 
-
-ALTER TABLE STAGE.ResourceURI 
-	ADD SeriesName varchar(100);
-*/

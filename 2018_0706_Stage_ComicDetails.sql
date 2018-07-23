@@ -12,13 +12,3 @@ CREATE TABLE STAGE.ComicDetails (
 	UniqueId uniqueidentifier default newid() 
 ); 
 GO 
-/*
-select * 
-from STAGE.ComicDetails; 
-GO
-select distinct SeriesName, 
-	COUNT(ComicId) 
-from Stage.ComicDetails 
-group by SeriesName 
-having COUNT(ComicId) > 1
-order by COUNT(ComicId) DESC;  

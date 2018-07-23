@@ -14,11 +14,3 @@ CREATE TABLE STAGE.CharacterCatalog (
 
 ); 
 GO 
-/*
-select count(*) from Stage.CharacterCatalog; 
-
-select * from Stage.CharacterCatalog; 
-
-select distinct CharacterName 
-from Stage.CharacterCatalog
-*/
