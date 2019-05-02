@@ -65,3 +65,4 @@ for charReturn in range(0, iterMax[0] - 1):
 
 cursor.close()
 
+#test
