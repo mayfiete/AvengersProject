@@ -7,3 +7,4 @@ CREATE TABLE STAGE.ResourceURI (
 ); 
 GO
 -- select distinct * from Stage.ResourceURI; 
+-- test again
