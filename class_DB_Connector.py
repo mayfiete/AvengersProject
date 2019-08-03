@@ -3,7 +3,7 @@ import pyodbc
 
 class DB_Connector(object):
 
-    def __init__(self, server='#############', database='##############'):
+    def __init__(self, server='WCF-P0207', database='SuperHeroes'):
         self.server = str(server)
         self.database = str(database)
         self.cnxn = pyodbc.connect(

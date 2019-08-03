@@ -1,14 +1,14 @@
 import pyodbc
 from MarvelClass import Marvel
-from ConnectionClass3 import DB_Connector
+from class_DB_Connector import DB_Connector
 
 # Connect to the database
 db_connection = DB_Connector()
 
 #cursor = cnxn.cursor()
 
-pub_key = '################################'
-pri_key = '################################'
+pub_key = '97349e5751b85b4e6da3fd96b1c2e2c1'
+pri_key = '01a66ca70cdbf6e8c4ac3fccfda2a4b2a17f62cc'
 x = Marvel(pub_key, pri_key)
 
 # determine the record count in the ResourceURI table

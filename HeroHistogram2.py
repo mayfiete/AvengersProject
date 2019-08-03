@@ -1,6 +1,6 @@
 
 import pyodbc
-from ConnectionClass3 import DB_Connector
+from class_DB_Connector import DB_Connector
 
 
 # Review: https://matplotlib.org/faq/usage_faq.html#how-do-i-select-pyqt4-or-pyside

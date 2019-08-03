@@ -13,11 +13,13 @@ class Marvel():
         self.private_key = private_key
         self.public_key  = public_key
         self.baseURI = "http://gateway.marvel.com/v1/public"
-        self.hasedString,self.timestamp = self.md5_Hash()
+        # self.hashed_String,self.timestamp = self.md5_Hash()
+        self.hashed_String = self.md5_Hash()
+        self.hash_input = self.md5_Hash()
         self.url_params = {
                             'ts':self.timestamp,
                             'apikey':self.public_key,
-                            'hash':self.hasedString
+                            'hash':self.hashed_String
                           }
 
     def fetch_characters(self):
@@ -112,4 +114,5 @@ class Marvel():
         '''
         self.timestamp = '{:%Y%m%d%H%M%S}'.format(datetime.datetime.now()) # generate a timestamp
         self.hash_input = self.timestamp + self.private_key + self.public_key
-        self.hashed_string = hashlib.md5(self.hash_input.encode('utf-8')).hexdigest() # generate md5 hash
+        self.hashed_String = hashlib.md5(self.hash_input.encode('utf-8')).hexdigest()  # generate md5 hash
+
