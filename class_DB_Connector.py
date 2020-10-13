@@ -1,13 +1,10 @@
-
 import pyodbc
+
 
 class DB_Connector(object):
 
-    def __init__(self, server='WCF-P0207', database='SuperHeroes'):
-        self.server = str(server)
-        self.database = str(database)
-        self.cnxn = pyodbc.connect(
-            'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server + ';Trusted_Connection=yes;DATABASE=' + database)
+    def __init__(self):
+        self.cnxn = pyodbc.connect('Driver={SQL Server Native Client 11.0}; Server=avengerstraining.database.windows.net; Database=avengers; UID=mayfiete; PWD=ThunderK@tz*09;')
         # Unpack Other Database Arguments Here
         self.db_cur = self.cnxn.cursor()
 
@@ -20,8 +17,7 @@ class DB_Connector(object):
     def __del__(self):
         self.cnxn.close()
 
-
-#db_connection = DB_Connector()
-#cursor = db_connection.query('select count(distinct ComicId) from Stage.ResourceURI')
-#row = cursor.fetchall()
-#print(str(row))
+# db_connection = DB_Connector()
+# cursor = db_connection.query('select count(distinct ComicId) from Stage.ResourceURI')
+# row = cursor.fetchall()
+# print(str(row))
