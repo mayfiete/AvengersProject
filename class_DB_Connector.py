@@ -4,7 +4,7 @@ import pyodbc
 class DB_Connector(object):
 
     def __init__(self):
-        self.cnxn = pyodbc.connect('Driver={SQL Server Native Client 11.0}; Server=avengerstraining.database.windows.net; Database=avengers; UID=mayfiete; PWD=ThunderK@tz*09;')
+        self.cnxn = pyodbc.connect('Driver={SQL Server Native Client 11.0}; Server=avengerstraining.database.windows.net; Database=avengers; UID=xxxxxx; PWD=xxxxxx;')
         # Unpack Other Database Arguments Here
         self.db_cur = self.cnxn.cursor()
 

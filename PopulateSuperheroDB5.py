@@ -9,8 +9,8 @@ db_connection = DB_Connector()
 #row = cursor.fetchall()
 #print(str(row))
 
-pub_key = 'fdbf07e71c484f4d729b1e0f86c2a30e'
-pri_key = '202aa57a3cc56c389f9c1127fe30fd43806075b5'
+pub_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxx'
+pri_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxx'
 x = Marvel(pub_key,pri_key)
 
 # Determine the iteration cycle
