@@ -1,5 +1,6 @@
 
 import pyodbc
+import pygal
 from class_DB_Connector import DB_Connector
 
 
